@@ -62,7 +62,7 @@ function LandingPage() {
         <div className="row">
           <div className="col-6">
             <h3 style={{ color: "var(--text-color)", marginTop: "-35px" }}>
-              Clear-Connect - Where Conversations Drive Impact
+              PopMeet - Where Conversations Drive Impact
             </h3>
             <p style={{ color: "var(--text-color)", fontSize: "large" }}>
               Your unified platform for secure, high-quality virtual meetings

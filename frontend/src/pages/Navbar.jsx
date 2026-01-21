@@ -53,7 +53,7 @@ function Navbar() {
             style={{ color: "var(--text-color)" }}
             href="/"
           >
-            CLEAR - CONNECT
+            PopMeet
           </a>
 
           {/* Right section: Theme + Auth/Profile */}
