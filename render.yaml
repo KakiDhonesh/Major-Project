@@ -2,7 +2,6 @@ services:
   - type: web
     name: clear-connect-backend
     env: node
-    plan: free
     rootDir: backend
     buildCommand: npm install
     startCommand: npm run start
@@ -11,7 +10,7 @@ services:
       - key: FRONTEND_URL
         sync: false
 
-  - type: static_site
+  - type: static
     name: clear-connect-frontend
     rootDir: frontend
     buildCommand: npm install && npm run build
