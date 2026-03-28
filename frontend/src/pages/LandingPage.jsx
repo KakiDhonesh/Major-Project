@@ -117,12 +117,16 @@ function LandingPage() {
       return;
 
     }
+    if (!meetingId.trim()) {
+      setMessage("Please enter a valid meeting ID");
+      return;
+    }
 
     navigate("/preview", {
 
       state: {
 
-        meetingId,
+        meetingId: meetingId.trim(),
 
         username,
 

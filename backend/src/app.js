@@ -15,7 +15,7 @@ const passport = require("passport");
 require("../config/Passport");
 
 if (!url) {
-  console.warn("⚠️ MONGO_URL is not set; MongoDB connection will fail.");
+  console.warn("MONGO_URL is not set; MongoDB connection will fail.");
 }
 
 const server = http.createServer(app);
@@ -23,9 +23,14 @@ app.use(express.json());
 
 const corsOrigins = [
   process.env.FRONTEND_URL,
+  "https://clear-connect.vercel.app",
   "http://localhost:5173",
+  "http://localhost:5174",
   "http://localhost:9000",
   "http://127.0.0.1:5173",
+  "http://192.168.1.27:5173",
+  "http://192.168.1.27:5174",
+  "http://192.168.1.27:9000",
 ].filter(Boolean);
 
 app.use(
@@ -42,7 +47,12 @@ app.get("/", (req, res) => {
   res.send("server page");
 });
 const io = new Server(server, {
-  cors: { origin: "*" },
+  cors: {
+    origin: corsOrigins,
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+  transports: ["websocket", "polling"],
 });
 
 io.on("connection", (socket) => {
@@ -55,12 +65,11 @@ async function connectDb() {
       serverSelectionTimeoutMS: 30000,
       socketTimeoutMS: 45000,
       bufferCommands: false,
-      family: 4, // Use IPv4
+      family: 4,
     });
-    console.log("✅ MongoDB Atlas connected successfully");
+    console.log("MongoDB Atlas connected successfully");
   } catch (err) {
-    console.error("⚠️ MongoDB connection failed, but server continues:", err.message);
-    // Server runs without DB - APIs will return errors on DB operations
+    console.error("MongoDB connection failed, but server continues:", err.message);
   }
 }
 

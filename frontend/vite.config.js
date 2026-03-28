@@ -14,6 +14,13 @@ export default defineConfig({
       protocolImports: true,
     }),
   ],
+  optimizeDeps: {
+    esbuildOptions: {
+      define: {
+        global: "globalThis",
+      },
+    },
+  },
   resolve: {
     alias: {
       stream: "stream-browserify",
@@ -22,7 +29,8 @@ export default defineConfig({
     },
   },
   server: {
-    host: true,
+    host: "0.0.0.0",
+    port: 5173,
     proxy: {
       '/register': 'http://localhost:9000',
       '/verify-otp': 'http://localhost:9000',
